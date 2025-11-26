@@ -28,7 +28,7 @@
 
 ## API Endpoint
 
-# Users
+Users
 | Method | Endpoint            | Auth Required |
 | ------ | ------------------- | ------------- |
 | POST   | `/api/v1/users`     | ❌            |
@@ -38,7 +38,7 @@
 | DELETE | `/api/v1/users/:id` | ❌            |
 
 
-# AUTH
+AUTH
 | Method | Endpoint                | Auth Required |
 | ------ | ----------------------- | ------------- |
 | POST   | `/api/v1/auth/login`    |❌             |
