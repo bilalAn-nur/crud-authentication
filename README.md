@@ -25,6 +25,34 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+
+## API Endpoint
+
+# Users
+| Method | Endpoint            | Auth Required |
+| ------ | ------------------- | ------------- |
+| POST   | `/api/v1/users`     | ❌            |
+| GET    | `/api/v1/users`     | ✅            |
+| GET    | `/api/v1/users/:id` | ✅            |
+| PUT    | `/api/v1/users/:id` | ❌            |
+| DELETE | `/api/v1/users/:id` | ❌            |
+
+
+# AUTH
+| Method | Endpoint                | Auth Required |
+| ------ | ----------------------- | ------------- |
+| POST   | `/api/v1/auth/login`    |❌             |
+| POST   | `/api/v1/auth/logout`   |✅             |
+
+
+## Version
+- Node.js: v25.2.0
+- npm: 11.6.2
+- NestJS: 11.0.12
+- Prisma: 6.19.0
+- Database: MariaDB 12.1.2
+
+
 ## Project setup
 
 ```bash
@@ -69,12 +97,3 @@ $ mau deploy
 ```
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## API Endpoint
-
-## Version
-- Node.js: v25.2.0
-- npm: 11.6.2
-- NestJS: 11.0.12
-- Prisma: 6.19.0
-- Database: MariaDB 12.1.2
