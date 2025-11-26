@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateAuthDto } from 'src/dto/auth/create-auth.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -16,10 +17,10 @@ export class AuthController {
 
   @Post('login')
   async login(
-    @Body() body: { email: string; password: string },
+    @Body() dto: CreateAuthDto,
     @Response({ passthrough: true }) res,
   ) {
-    const tokens = await this.authService.login(body.email, body.password, res);
+    const tokens = await this.authService.login(dto, res);
 
     return {
       statusCode: HttpStatus.OK,

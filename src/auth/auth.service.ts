@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
+import { CreateAuthDto } from 'src/dto/auth/create-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -13,11 +14,12 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async login(email: string, password: string, res) {
+  async login(dto: CreateAuthDto, res) {
+    let email = dto.email;
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) throw new UnauthorizedException('Email is not registered!!');
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(dto.password, user.password);
     if (!isMatch) throw new UnauthorizedException('Wrong Password!!');
 
     const payload = { sub: user.id, email: user.email };
