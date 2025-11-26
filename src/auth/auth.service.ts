@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -55,5 +56,31 @@ export class AuthService {
     });
 
     return { accessToken, refreshToken };
+  }
+
+  async logout(req: Request, res: Response) {
+    const refreshToken = req.cookies?.refreshToken;
+
+    if (refreshToken) {
+      await this.prisma.refreshToken.deleteMany({
+        where: { token: refreshToken },
+      });
+    }
+
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
+
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
+
+    return {
+      message: 'Logout success',
+    };
   }
 }

@@ -42,6 +42,7 @@ export class UsersController {
     };
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   async findOne(@Param('id') id) {
     const data = await this.service.findOne(+id);
