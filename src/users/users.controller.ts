@@ -1,7 +1,20 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Query, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from 'src/dto/users/create-user.dto';
 import { UpdateUserDto } from 'src/dto/users/update-user.dto';
+import { AuthGuard } from 'src/guard/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -17,6 +30,7 @@ export class UsersController {
     };
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   async findAll(@Query('limit') limit = 10, @Query('page') page = 1) {
     const { total, data } = await this.service.findAll(+limit, +page);
